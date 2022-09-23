@@ -5,7 +5,9 @@ from .models import Author
 
 def author(request, pk):
     author = get_object_or_404(Author, pk=pk)
+    posts = author.post_set.all().order_by('-created')
 
     return render(request, 'author.html', context={
-        'author': author
+        'author': author,
+        'posts': posts,
     })

@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 
@@ -10,7 +11,10 @@ class Author(models.Model):
     password = models.CharField(max_length=50)
     bio = models.TextField()
     profile_pic = models.ImageField(upload_to='profile_pics')
-    post = models.ForeignKey('post.Post', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse("author", kwargs={"pk": self.pk})
+    

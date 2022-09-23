@@ -3,6 +3,8 @@ from ckeditor.fields import RichTextField
 from django.utils.text import slugify
 from django.urls import reverse
 
+from author.views import author
+
 
 # Create your models here.
 
@@ -14,13 +16,15 @@ class Tag(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length=100)
-    description = models.TextField()
+    description = models.TextField(null=True, blank=True)
     body = RichTextField()
     date = models.DateTimeField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
     created = models.DateField(auto_now_add=True)
     tag = models.ManyToManyField(Tag)
-
+    author = models.ForeignKey('author.Author', on_delete=models.CASCADE)
+    slug = models.SlugField(null=True, blank=True)
+    
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
