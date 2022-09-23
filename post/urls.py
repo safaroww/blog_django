@@ -5,5 +5,4 @@ from post import views
 
 urlpatterns = [
     path('post/<int:pk>/<str:slug>', views.post, name='post'),
-    path('author/<str:slug>', views.post, name='author'),
 ]
